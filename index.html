@@ -1,0 +1,444 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Alves | Official Website</title>
+  
+  <!-- ПОДКЛЮЧАЕМ ШРИФТЫ -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:wght@300;400;600&display=swap">
+
+  <!-- ТУТ ЖИВУТ ВСЕ СТИЛИ (CSS) -->
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000000 !important;
+      font-family: 'Montserrat', sans-serif;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    .site-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 100vh;
+      padding: 20px;
+      box-sizing: border-box;
+      position: relative;
+      background-color: #000000;
+    }
+
+    /* НАСТРОЙКИ ЯЗЫКА */
+    .settings-container {
+      position: absolute;
+      top: 25px;
+      right: 25px;
+      z-index: 100;
+    }
+
+    .settings-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      font-size: 20px;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: transform 0.3s ease, background 0.3s;
+    }
+
+    .settings-btn:hover {
+      transform: rotate(45deg);
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .language-dropdown {
+      position: absolute;
+      top: 50px;
+      right: 0;
+      background: #111111;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      padding: 5px 0;
+      display: none;
+      flex-direction: column;
+      width: 140px;
+      box-shadow: 0px 5px 15px rgba(0,0,0,0.5);
+    }
+
+    .language-dropdown.show {
+      display: flex;
+    }
+
+    .lang-option {
+      background: none;
+      border: none;
+      color: #b3b3b3;
+      padding: 8px 15px;
+      text-align: left;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .lang-option:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+    .lang-option.active {
+      color: #cd201f;
+      font-weight: bold;
+    }
+
+    /* ВЕРХНЕЕ МЕНЮ */
+    .top-menu {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    .top-menu .menu-btn {
+      color: #ffffff !important;
+      text-decoration: none !important;
+      background: rgba(255, 255, 255, 0.05) !important;
+      border: 1px solid rgba(255, 255, 255, 0.2) !important;
+      padding: 10px 20px !important;
+      border-radius: 20px !important;
+      font-size: 14px !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+      transition: all 0.3s ease !important;
+    }
+
+    .top-menu .menu-btn:hover {
+      background: rgba(255, 255, 255, 0.15) !important;
+      border-color: rgba(255, 255, 255, 0.4) !important;
+    }
+
+    /* ЦЕНТР */
+    .hero-section {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-grow: 1;
+      text-align: center;
+      padding: 40px 0;
+    }
+
+    .balloon-bg {
+      position: absolute;
+      width: 220px;
+      height: 280px;
+      background: #7a7a7a;
+      border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+      opacity: 0.6;
+      z-index: 1;
+      transition: transform 0.1s ease-out;
+    }
+
+    .balloon-bg::after {
+      content: '';
+      position: absolute;
+      bottom: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 12px solid #7a7a7a;
+    }
+
+    .band-title {
+      font-family: 'Alex Brush', cursive;
+      font-size: 110px;
+      font-weight: 400;
+      margin: 0;
+      z-index: 2;
+      color: #ffffff;
+      animation: neonGlow 3s ease-in-out infinite alternate;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      letter-spacing: 4px;
+      color: #b3b3b3;
+      margin-top: -5px;
+      z-index: 2;
+    }
+
+    @keyframes neonGlow {
+      0% { text-shadow: 0 0 10px rgba(255,255,255,0.2), 0 0 20px rgba(255,255,255,0.2); }
+      50% { text-shadow: 0 0 15px rgba(255,255,255,0.6), 0 0 30px rgba(255,255,255,0.4); }
+      100% { text-shadow: 0 0 10px rgba(255,255,255,0.2), 0 0 20px rgba(255,255,255,0.2); }
+    }
+
+    /* ФУТЕР И СОЦСЕТИ */
+    .footer-section {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+      gap: 20px;
+    }
+
+    .yt-button {
+      background-color: #cd201f;
+      color: #ffffff;
+      text-decoration: none;
+      padding: 12px 35px;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: youtubePulse 2s infinite alternate;
+      transition: transform 0.2s ease;
+    }
+
+    .yt-button:hover {
+      transform: scale(1.05);
+    }
+
+    @keyframes youtubePulse {
+      0% { box-shadow: 0 0 10px rgba(205, 32, 31, 0.4); }
+      100% { box-shadow: 0 0 25px rgba(205, 32, 31, 0.8); }
+    }
+
+    .tt-button {
+      background-color: #000000;
+      color: #ffffff;
+      text-decoration: none;
+      padding: 12px 35px;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 2px solid #00f2fe;
+      box-shadow: 0px 0px 10px rgba(0, 242, 254, 0.4), inset 0px 0px 8px rgba(254, 44, 85, 0.4);
+      transition: transform 0.2s ease, box-shadow 0.2s;
+    }
+
+    .tt-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0px 0px 20px rgba(0, 242, 254, 0.8), inset 0px 0px 12px rgba(254, 44, 85, 0.8);
+    }
+
+    /* МОДАЛКА */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-overlay.show {
+      display: flex;
+    }
+
+    .modal-box {
+      background: #111111;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 40px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+    }
+
+    .modal-box h2 {
+      margin-top: 0;
+      font-weight: 400;
+      letter-spacing: 2px;
+      color: #ffffff;
+    }
+
+    .close-modal-btn {
+      background: transparent;
+      border: 1px solid #fff;
+      color: white;
+      padding: 8px 25px;
+      border-radius: 20px;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: all 0.2s;
+    }
+
+    .close-modal-btn:hover {
+      background: white;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="site-container">
+    
+    <!-- ЯЗЫКИ -->
+    <div class="settings-container">
+      <button class="settings-btn" id="settingsToggle">⚙️</button>
+      <div class="language-dropdown" id="langDropdown">
+        <button data-lang="en" class="lang-option active">English</button>
+        <button data-lang="uk" class="lang-option">Українська</button>
+        <button data-lang="ru" class="lang-option">Русский</button>
+        <button data-lang="de" class="lang-option">Deutsch</button>
+        <button data-lang="fr" class="lang-option">Français</button>
+        <button data-lang="es" class="lang-option">Español</button>
+        <button data-lang="it" class="lang-option">Italiano</button>
+        <button data-lang="pl" class="lang-option">Polski</button>
+        <button data-lang="pt" class="lang-option">Português</button>
+      </div>
+    </div>
+    
+    <!-- МЕНЮ -->
+    <nav class="top-menu">
+      <a href="#" class="menu-btn" data-key="store"><span class="icon">🛍️</span> Store</a>
+      <a href="#" class="menu-btn" data-key="news"><span class="icon">📰</span> News</a>
+      <a href="#" class="menu-btn" data-key="members"><span class="icon">👥</span> Group Members</a>
+      <a href="#" class="menu-btn" data-key="tours"><span class="icon">📅</span> Tours/Concerts</a>
+    </nav>
+
+    <!-- ЦЕНТР -->
+    <main class="hero-section">
+      <div class="balloon-bg"></div>
+      <h1 class="band-title">The Alves</h1>
+      <p class="subtitle" data-key="subtitle">OFFICIAL WEBSITE</p>
+    </main>
+
+    <!-- СОЦСЕТИ -->
+    <footer class="footer-section">
+      <a href="#" class="yt-button">
+        <span class="yt-icon">▶</span> <span data-key="yt_btn">Subscribe on YouTube</span>
+      </a>
+      <a href="#" class="tt-button">
+        <span class="tt-icon">🎵</span> <span>TikTok</span>
+      </a>
+    </footer>
+    
+    <!-- МОДАЛКА -->
+    <div class="modal-overlay" id="customModal">
+      <div class="modal-box">
+        <h2 id="modalText">In Progress...</h2>
+        <button class="close-modal-btn" id="closeModal">OK</button>
+      </div>
+    </div>
+    
+  </div>
+
+  <!-- ТУТ ЖИВЕТ ВСЯ ЛОГИКА (JavaScript) -->
+  <script>
+    const translations = {
+      en: { store: "🛍️ Store", news: "📰 News", members: "👥 Group Members", tours: "📅 Tours/Concerts", subtitle: "OFFICIAL WEBSITE", yt_btn: "Subscribe on YouTube", in_progress: "In Progress..." },
+      uk: { store: "🛍️ Магазин", news: "📰 Новини", members: "👥 Учасники групи", tours: "📅 Тури/Концерти", subtitle: "ОФІЦІЙНИЙ САЙТ", yt_btn: "Підписатися на YouTube", in_progress: "В процесі..." },
+      ru: { store: "🛍️ Магазин", news: "📰 Новости", members: "👥 Участники группы", tours: "📅 Туры/Концерты", subtitle: "ОФИЦИАЛЬНЫЙ САЙТ", yt_btn: "Подписаться на YouTube", in_progress: "В процессе..." },
+      de: { store: "🛍️ Shop", news: "📰 Nachrichten", members: "👥 Gruppenmitglieder", tours: "📅 Tourneen/Konzerte", subtitle: "OFFIZIELLE WEBSEITE", yt_btn: "Auf YouTube abonnieren", in_progress: "In Bearbeitung..." },
+      fr: { store: "🛍️ Boutique", news: "📰 Actualités", members: "👥 Membres du Groupe", tours: "📅 Tournées/Concerts", subtitle: "SITE OFFICIEL", yt_btn: "S'abonner sur YouTube", in_progress: "En cours..." },
+      es: { store: "🛍️ Tienda", news: "📰 Noticias", members: "👥 Miembros del Grupo", tours: "📅 Giras/Conciertos", subtitle: "SITIO OFICIAL", yt_btn: "Suscribirse en YouTube", in_progress: "En progreso..." },
+      it: { store: "🛍️ Negozio", news: "📰 Novità", members: "👥 Membri del Gruppo", tours: "📅 Tour/Concerti", subtitle: "SITO UFFICIALE", yt_btn: "Iscriviti su YouTube", in_progress: "In corso..." },
+      pl: { store: "🛍️ Sklep", news: "📰 Wiadomości", members: "👥 Członkowie Zespołu", tours: "📅 Trasy/Koncerty", subtitle: "OFICJALNA STRONA", yt_btn: "Subskrybuj na YouTube", in_progress: "W trakcie..." },
+      pt: { store: "🛍️ Loja", news: "📰 Notícias", members: "👥 Membros do Grupo", tours: "📅 Turnês/Concertos", subtitle: "SITE OFICIAL", yt_btn: "Inscrever-se no YouTube", in_progress: "Em progresso..." }
+    };
+
+    let currentLang = 'en';
+
+    const settingsToggle = document.getElementById('settingsToggle');
+    const langDropdown = document.getElementById('langDropdown');
+
+    if(settingsToggle && langDropdown) {
+      settingsToggle.addEventListener('click', () => {
+        langDropdown.classList.toggle('show');
+      });
+    }
+
+    document.querySelectorAll('.lang-option').forEach(button => {
+      button.addEventListener('click', (e) => {
+        document.querySelector('.lang-option.active').classList.remove('active');
+        e.target.classList.add('active');
+        currentLang = e.target.getAttribute('data-lang');
+        translateSite();
+        langDropdown.classList.remove('show');
+      });
+    });
+
+    function translateSite() {
+      document.querySelectorAll('[data-key]').forEach(element => {
+        const key = element.getAttribute('data-key');
+        if (element.classList.contains('menu-btn')) {
+          const icon = element.querySelector('.icon') ? element.querySelector('.icon').outerHTML : '';
+          const pureText = translations[currentLang][key].replace(/^[^\s]+\s/, '');
+          element.innerHTML = `${icon} ${pureText}`;
+        } else {
+          element.textContent = translations[currentLang][key];
+        }
+      });
+    }
+
+    const modal = document.getElementById('customModal');
+    const closeModal = document.getElementById('closeModal');
+    const modalText = document.getElementById('modalText');
+
+    document.querySelectorAll('.top-menu .menu-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if(modal && modalText) {
+          modalText.textContent = translations[currentLang].in_progress;
+          modal.classList.add('show');
+        }
+      });
+    });
+
+    if(closeModal && modal) {
+      closeModal.addEventListener('click', () => {
+        modal.classList.remove('show');
+      });
+    }
+
+    const youtubeButton = document.querySelector('.yt-button');
+    if(youtubeButton) {
+      youtubeButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.open('https://www.youtube.com/@TheAngelAlves', '_blank');
+      });
+    }
+
+    const tiktokButton = document.querySelector('.tt-button');
+    if(tiktokButton) {
+      tiktokButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.open('https://www.tiktok.com/@the.rolling.alves?_r=1&_t=ZS-97Msn5itaqn', '_blank');
+      });
+    }
+
+    const balloon = document.querySelector('.balloon-bg');
+    document.addEventListener('mousemove', (e) => {
+      if(balloon) {
+        const moveX = (e.clientX - window.innerWidth / 2) / 25;
+        const moveY = (e.clientY - window.innerHeight / 2) / 25;
+        balloon.style.transform = `translate(${moveX}px, ${moveY}px)`;
+      }
+    });
+
+    window.addEventListener('click', (e) => {
+      if (settingsToggle && langDropdown && !settingsToggle.contains(e.target) && !langDropdown.contains(e.target)) {
+        langDropdown.classList.remove('show');
+      }
+    });
+  </script>
+</body>
+</html>
